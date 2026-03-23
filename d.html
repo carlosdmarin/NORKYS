@@ -19,6 +19,12 @@
   </head>
 
   <body>
+    <!-- CARGANDO -->
+    <div class="loader">
+      <img src="img/norkys-37377-Photoroom.png" class="logo-loader">
+      <div class="spinner"></div>
+      <p>Cargando sistema</p>
+    </div>
     <!-- ============================= -->
     <!-- TOPBAR (solo móvil) -->
     <!-- ============================= -->
@@ -90,14 +96,14 @@
             <span>Asistencia</span>
           </a>
         </li>
+        <!-- REPORTES -->
+        <li class="menu-item">
+          <a href="#" onclick="mostrarSeccion('reportes')">
+            <i class="fa-solid fa-chart-column"></i>
+            <span>Reportes</span>
+          </a>
+        </li>
       </ul>
-<!-- REPORTES -->
-      <li class="menu-item">
-  <a href="#" onclick="mostrarSeccion('reportes')">
-    <i class="fa-solid fa-chart-column"></i>
-    <span>Reportes</span>
-  </a>
-</li>
     </aside>
 
     <!-- ============================= -->
@@ -107,6 +113,78 @@
       <!-- SECCIÓN: VER EMPLEADOS -->
       <section id="ver-empleados" class="contenido">
         <h1>Lista de empleados</h1>
+
+        <section class="tabla-container">
+          <table class="tabla-empleados">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Cargo</th>
+                <th>Turno</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>001</td>
+                <td>Juan Pérez</td>
+                <td>12345678</td>
+                <td>987654321</td>
+                <td>Cajero</td>
+                <td>Mañana</td>
+                <td class="acciones">
+                  <button class="btn-editar">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button class="btn-eliminar">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>002</td>
+                <td>Alison Díaz</td>
+                <td>87654321</td>
+                <td>912345678</td>
+                <td>Administrador</td>
+                <td>Tarde</td>
+                <td class="acciones">
+                  <button class="btn-editar">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button class="btn-eliminar">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>003</td>
+                <td>Marcos Reátegui</td>
+                <td>45678912</td>
+                <td>923456789</td>
+                <td>Cocina</td>
+                <td>Noche</td>
+                <td class="acciones">
+                  <button class="btn-editar">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button class="btn-eliminar">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </section>
 
       <!-- SECCIÓN: REGISTRAR EMPLEADOS -->
@@ -240,7 +318,6 @@
                 <td><span class="estado asistio">Asistio</span></td>
               </tr>
 
-              <!-- MÁS FILAS... -->
               <tr>
                 <td>Carlos Marin</td>
                 <td>2026-09-16</td>
@@ -263,7 +340,7 @@
         </section>
       </section>
 
-      <!-- SECCIÓN EXTRA -->
+      <!-- SECCIÓN REGISTRO DE ASISTENCIA -->
       <section id="empleados" class="contenido">
         <h1>Empleados</h1>
       </section>
@@ -311,12 +388,25 @@
           </table>
         </section>
       </section>
+      <!-- SECCION DE REPORTES -->
+      <section id="reportes" class="contenido">
+        <h1>Reportes</h1>
+      </section>
     </main>
 
     <!-- ============================= -->
     <!-- SCRIPTS -->
     <!-- ============================= -->
+    <!-- LOADER DE PANTALLA -->
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
 
+        setTimeout(() => {
+          loader.classList.add("hidden");
+        }, 1500); // tiempo del loader (1.5 segundos)
+      });
+    </script>
     <!-- DataTables (usa jQuery) -->
     <script>
       $(document).ready(function () {

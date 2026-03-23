@@ -295,7 +295,184 @@ main {
 .tabla-asistencia tbody tr:hover {
   background: #f9f9f9;
 }
+/* DISENO DE LA TABLA EMPLEADOS */
+.tabla-empleados {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
+/* HEADER */
+.tabla-empleados thead {
+  background: #d9d9de;
+}
+
+.tabla-empleados th {
+  padding: 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* FILAS */
+.tabla-empleados td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* HOVER */
+.tabla-empleados tbody tr:hover {
+  background: #f9f9f9;
+}
+
+/* ESTILO DE BOTONES DE ELIMINAR Y EDITAR */
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-editar {
+  background: #3498db;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-editar:hover {
+  background: #2980b9;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-eliminar:hover {
+  background: #c0392b;
+}
+
+
+
+/* CARGANGO SISTEMA  */
+/* LOADER PANTALLA COMPLETA */
+/* logo de NORKYS */
+.logo-loader {
+  width: 200px;       /* tamaño base */
+  max-width: 80%;     /* nunca se desborda */
+  height: auto;       /* mantiene proporción */
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+/* PARA QUE EL LOGO SEA RESPONSIVE */
+/*  CELULAR */
+@media (max-width: 480px) {
+  .logo-loader {
+    width: 140px;
+  }
+}
+
+/*  TABLET */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .logo-loader {
+    width: 180px;
+  }
+}
+
+/*  DESKTOP */
+@media (min-width: 1025px) {
+  .logo-loader {
+    width: 220px;
+  }
+}
+
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #184c78; /* mismo azul de tu sistema */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+  z-index: 9999;
+}
+
+/* SPINNER */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ffffff50;
+  border-top: 5px solid #fff;
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+}
+
+/* ANIMACIÓN */
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* TEXTO */
+.loader p {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/* OCULTAR */
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s;
+}
+@media (max-width: 768px) {
+
+  .tabla-empleados thead {
+    display: none;
+  }
+
+  .tabla-empleados,
+  .tabla-empleados tbody,
+  .tabla-empleados tr,
+  .tabla-empleados td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabla-empleados tr {
+    background: #dcdcdc;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .tabla-empleados td {
+    border: none;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+
+  /* Nombre destacado */
+  .tabla-empleados td:nth-child(2) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+}
 /* ============================= */
 /* TABLET (>=768px) */
 /* ============================= */

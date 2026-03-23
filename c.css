@@ -1,35 +1,51 @@
+/* IMPORTAMOS FUENTES DE GOOGLE */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
-/* RESET básico */
+/* ============================= */
+/* RESET BÁSICO */
+/* ============================= */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; /* elimina márgenes por defecto */
+  padding: 0; /* elimina relleno por defecto */
+  box-sizing: border-box; /* incluye padding y border en el tamaño */
+  font-family: Ubuntu; /* fuente principal */
+}
+
+/* FONDO GENERAL */
+body {
+  background-color: #e9e9e9; /* color gris claro */
   font-family: Ubuntu;
 }
-body{
-  background-color: #E9E9E9;
-}
+
+/* ============================= */
 /* TOPBAR */
+/* ============================= */
 .topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #184c78;
+  display: flex; /* usamos flexbox */
+  align-items: center; /* centra verticalmente */
+  background: #184c78; /* color azul */
   color: white;
-  padding: 15px;
+  justify-content: flex-start;
+  position: fixed;
+  height: 56px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  padding: 0 20px;
 }
+
+/* TÍTULO CENTRADO */
 .topbar .title-business {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-
+  transform: translateX(-50%); /* centra horizontalmente */
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
 }
 
-/* BOTÓN */
+/* BOTÓN HAMBURGUESA */
 .hamburguer {
   background: none;
   border: none;
@@ -38,26 +54,30 @@ body{
   cursor: pointer;
 }
 
+/* ============================= */
 /* SIDEBAR */
+/* ============================= */
 .sidebar {
-  position: fixed;
+  position: fixed; /* fijo en pantalla */
   top: 0;
-  left: -250px; /* oculto */
+  left: -250px; /* oculto fuera de pantalla */
   width: 250px;
   height: 100%;
   background: #184c78;
   color: white;
   padding: 20px;
-  transition: 0.3s ease;
+  transition: 0.3s ease; /* animación */
   z-index: 1000;
 }
 
-/* CUANDO SE ABRE */
+/* CUANDO EL SIDEBAR SE ABRE */
 .sidebar.active {
   left: 0;
 }
 
-/* OVERLAY */
+/* ============================= */
+/* OVERLAY (fondo oscuro) */
+/* ============================= */
 .overlay {
   position: fixed;
   top: 0;
@@ -65,105 +85,109 @@ body{
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: none;
+  display: none; /* oculto */
   z-index: 900;
 }
 
+/* CUANDO SE ACTIVA */
 .overlay.active {
   display: block;
 }
 
-/* LINKS */
+/* ============================= */
+/* LINKS DEL SIDEBAR */
+/* ============================= */
 .sidebar ul {
-  list-style: none;
+  list-style: none; /* quitamos viñetas */
   margin-top: 20px;
 }
 
 .sidebar ul li {
-  margin: 15px 0;
+  margin: 15px 0; /* espacio entre items */
 }
 
 .sidebar a {
   color: white;
-  text-decoration: none;
+  text-decoration: none; /* sin subrayado */
   display: flex;
-  gap: 10px;
+  gap: 10px; /* espacio entre icono y texto */
 }
 
-/* CONTENIDO */
+/* ============================= */
+/* CONTENIDO PRINCIPAL */
+/* ============================= */
 main {
   padding: 20px;
 }
 
-/* para las secciones */
+/* SECCIONES OCULTAS */
 .contenido {
   display: none;
 }
 
+/* SECCIÓN ACTIVA */
 .contenido.activo {
   display: block;
 }
+
 /* ============================= */
 /* CARDS DE INFORMACIÓN */
 /* ============================= */
 
-/* CONTENEDOR DE LAS CARDS */
+/* CONTENEDOR */
 .dash-informacion {
-  display: grid; /* usamos grid para ordenar las cards */
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
-  gap: 20px; /* espacio entre cards */
-  margin: 20px; /* margen externo */
+  display: grid; /* usamos grid */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 20px; /* separación */
+  margin: 20px;
 }
 
-/* ESTILO GENERAL DE TODAS LAS CARDS */
+/* CARDS */
 .dash-informacion div {
-  padding: 20px; /* espacio interno */
-  border-radius: 5px; /* bordes redondeados */
-  color: #fff; /* texto blanco */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* sombra suave */
-  transition: 0.3s; /* animación suave */
-  cursor: pointer; /* cambia el cursor */
+  padding: 20px;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* sombra */
+  transition: 0.3s;
+  cursor: pointer;
 }
 
-/* EFECTO HOVER (cuando pasas el mouse) */
+/* EFECTO HOVER */
 .dash-informacion div:hover {
-  transform: translateY(-5px); /* se eleva un poco */
+  transform: translateY(-5px); /* se eleva */
 }
 
-/* ESTILO DE LOS TÍTULOS */
+/* TÍTULO */
 .dash-informacion h3 {
   font-size: 16px;
   margin-bottom: 10px;
-  /* justify-content no hace efecto aquí porque no es flex */
 }
 
-/* ESTILO DE LOS NÚMEROS */
+/* NÚMEROS */
 .dash-informacion p {
   font-size: 45px;
   font-weight: bold;
 }
 
-/* COLORES DE CADA CARD */
+/* COLORES */
 .card-Azul {
-  background: linear-gradient(#056CF2); /* azul */
+  background: linear-gradient(#056cf2);
 }
-
 .card-verde {
-  background: linear-gradient(#00B3AD); /* verde */
+  background: linear-gradient(#00b3ad);
 }
-
 .card-rojo {
-  background: linear-gradient(#F25C57); /* rojo */
+  background: linear-gradient(#f25c57);
 }
-
 .card-morado {
-  background: linear-gradient(#8557F2); /* morado */
+  background: linear-gradient(#8557f2);
 }
 
-
-/* SUBMENU OCULTO */
+/* ============================= */
+/* SUBMENÚ */
+/* ============================= */
 .submenu {
-  max-height: 0;
+  max-height: 0; /* oculto */
   overflow: hidden;
   transition: max-height 0.3s ease;
   padding-left: 15px;
@@ -174,15 +198,18 @@ main {
   max-height: 200px;
 }
 
-/* FLECHITA */
+/* FLECHA */
 .arrow {
   margin-left: auto;
   transition: transform 0.3s ease;
 }
-
-/* ROTACIÓN 🔥 */
+/* TAMANO DE LA FLECHA DE EL SUBMENU  EMPLEADOS*/
+.menu-item .arrow {
+  font-size: 16px; /*Esto hace que en el tablet tambien se vea de ese tamano*/
+}
+/* ROTACIÓN */
 .menu-item.active .arrow {
-  transform: rotate(180deg);
+  transform: rotate(180deg); /*Hace que gire la flechita*/
 }
 
 /* ALINEACIÓN */
@@ -192,20 +219,21 @@ main {
   gap: 10px;
 }
 
-/* SUBMENU ESTILO */
+/* SUBMENU LINKS */
 .submenu a {
   display: block;
   padding: 5px 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
-/*  */
+/* ============================= */
+/* TABLAS */
+/* ============================= */
 #tabla-empleados {
   margin-top: 20px;
 }
 
-/* tablas */
 /* CONTENEDOR */
 .tabla-container {
   background: #f5f5f5;
@@ -232,13 +260,14 @@ main {
   background: #d9d9de;
 }
 
+/* ENCABEZADOS */
 .tabla-asistencia th {
   padding: 15px;
   text-align: left;
   font-weight: bold;
 }
 
-/* FILAS */
+/* CELDAS */
 .tabla-asistencia td {
   padding: 15px;
   border-bottom: 1px solid #ddd;
@@ -252,87 +281,178 @@ main {
   font-size: 14px;
 }
 
-/* VERDE */
+/* COLORES DE ESTADO */
 .asistio {
   background: #b9e5c9;
   color: #1e7e34;
 }
-
-/* NARANJA */
 .tarde {
   background: #f8c291;
   color: #a84300;
 }
 
-/* HOVER (opcional pro) */
+/* HOVER FILAS */
 .tabla-asistencia tbody tr:hover {
   background: #f9f9f9;
 }
+
 /* ============================= */
-/* TABLET (768px en adelante) */
+/* TABLET (>=768px) */
 /* ============================= */
 @media (min-width: 768px) {
-
-  /* Sidebar más pequeño tipo íconos */
+  /* SIDEBAR COMPACTO */
   .sidebar {
     left: 0;
     width: 100px;
   }
 
-  /* Ocultamos textos del menú */
+  /* OCULTAR TEXTO */
   .sidebar ul li a span {
     display: none;
   }
 
-  /* Ocultamos logo */
+  /* OCULTAR LOGO */
   .sidebar-logo {
-    border-color: blue; /* esto parece debug, puedes quitarlo */
-    width: 100%;
-    height: 10%;
     display: none;
   }
 
-  /* Íconos grandes para modo tablet */
+  /* ICONOS GRANDES */
   .sidebar ul li a i {
     font-size: 60px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin: 40px 0;
   }
-
-  /* Quitamos overlay */
+  /* QUITAR OVERLAY */
   .overlay {
     display: none !important;
   }
 
-  /* Ajustamos el contenido principal */
+  /* AJUSTAR CONTENIDO */
   main {
     margin-left: 100px;
   }
 
-  /* Ocultamos topbar */
+  /* OCULTAR TOPBAR */
   .topbar {
     display: none;
   }
 
-  /* Cards en 2 columnas */
+  /* CARDS EN 2 COLUMNAS */
   .dash-informacion {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/*  */
+.asistencia-container {
+  padding: 20px;
+}
 
+.tabla-asistencia-pro {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-/* resposive de las tablas */
-/* ===================== */
-/* 📱 MODO CELULAR */
-/* ===================== */
+/* HEADER */
+.tabla-asistencia-pro thead {
+  background: #f1f1f1;
+}
+
+.tabla-asistencia-pro th {
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+}
+
+/* FILAS */
+.tabla-asistencia-pro td {
+  padding: 18px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* COLUMNA ESTUDIANTE */
+.col-estudiante {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.col-estudiante img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* ICONOS */
+.presente {
+  color: #4caf50;
+  font-size: 18px;
+}
+
+.atrasado {
+  color: #999;
+  font-size: 18px;
+}
+
+.ausente {
+  color: #888;
+  font-size: 18px;
+}
+
+.justificado {
+  color: #bbb;
+  font-size: 18px;
+}
+
+/* HOVER */
+.tabla-asistencia-pro tbody tr:hover {
+  background: #fafafa;
+}
+/* para que las asistencias sean responsives  */
 @media (max-width: 768px) {
+  .tabla-asistencia-pro thead {
+    display: none;
+  }
 
-  /* quitamos header */
+  .tabla-asistencia-pro,
+  .tabla-asistencia-pro tbody,
+  .tabla-asistencia-pro tr,
+  .tabla-asistencia-pro td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabla-asistencia-pro tr {
+    margin-bottom: 15px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .tabla-asistencia-pro td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+  }
+
+  .col-estudiante {
+    font-weight: bold;
+  }
+}
+/* ============================= */
+/* CELULAR (<=768px) */
+/* ============================= */
+@media (max-width: 768px) {
+  /* OCULTAR HEADER */
   .tabla-asistencia thead {
     display: none;
   }
 
-  /* tabla como bloque */
+  /* CONVERTIR TABLA A BLOQUES */
   .tabla-asistencia,
   .tabla-asistencia tbody,
   .tabla-asistencia tr,
@@ -341,7 +461,7 @@ main {
     width: 100%;
   }
 
-  /* cada fila es una card */
+  /* FILA COMO CARD */
   .tabla-asistencia tr {
     background: #dcdcdc;
     margin-bottom: 10px;
@@ -349,49 +469,49 @@ main {
     border-radius: 8px;
   }
 
-  /* celdas */
+  /* CELDAS */
   .tabla-asistencia td {
     border: none;
     padding: 5px 0;
     font-size: 16px;
   }
 
-  /* ocultamos datos que no quieres mostrar */
-  .tabla-asistencia td:nth-child(2), /* fecha */
-  .tabla-asistencia td:nth-child(3) { /* turno */
+  /* OCULTAR COLUMNAS */
+  .tabla-asistencia td:nth-child(2),
+  .tabla-asistencia td:nth-child(3) {
     display: none;
   }
 
-  /* nombre grande */
+  /* NOMBRE GRANDE */
   .tabla-asistencia td:nth-child(1) {
     font-size: 20px;
     font-weight: bold;
   }
 
-  /* juntamos entrada y salida */
+  /* UNIR ENTRADA Y SALIDA */
   .tabla-asistencia td:nth-child(4)::after {
     content: " - " attr(data-salida);
   }
 
-  /* estado alineado a la derecha */
+  /* ESTADO */
   .tabla-asistencia td:nth-child(6) {
     margin-top: 10px;
   }
-
 }
 
 /* ============================= */
-/* MOBILE (celulares) */
+/* MOBILE PEQUEÑO (<=480px) */
 /* ============================= */
 @media (max-width: 480px) {
-
-  /* Cards en una sola columna */
+  /* UNA COLUMNA */
   .dash-informacion {
     grid-template-columns: 1fr;
   }
 }
 
-/* formulario registrar empleado  */
+/* ============================= */
+/* FORMULARIO */
+/* ============================= */
 .form-empleado {
   max-width: 500px;
   margin-top: 20px;
@@ -400,6 +520,7 @@ main {
   gap: 15px;
 }
 
+/* GRUPOS */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -410,6 +531,7 @@ main {
   margin-bottom: 5px;
 }
 
+/* INPUTS */
 .form-group input,
 .form-group select {
   padding: 10px;
@@ -433,37 +555,40 @@ main {
 .btn-guardar:hover {
   background: #2980b9;
 }
+
 /* ============================= */
-/* DESKTOP (pantallas grandes) */
+/* DESKTOP (>=1280px) */
 /* ============================= */
 @media (min-width: 1280px) {
-
-  /* Volvemos a 4 columnas */
+  /* 4 COLUMNAS */
   .dash-informacion {
     grid-template-columns: repeat(4, 1fr);
     margin-top: 50px;
   }
 
-  /* Sidebar completo */
+  /* SIDEBAR COMPLETO */
   .sidebar {
     left: 0;
     width: 220px;
   }
 
-  /* Mostramos nuevamente los textos */
+  /* MOSTRAR TEXTO */
   .sidebar ul li a span {
     display: inline;
   }
 
-  /* Ajustamos contenido */
+  /* CONTENIDO */
   main {
     margin-left: 250px;
   }
 
-  /* Restauramos tamaño normal de íconos (evita heredar tablet) */
+  /* ICONOS NORMALES */
   .sidebar ul li a i {
     font-size: 24px;
     margin: 0;
   }
 
+  .menu-item .arrow {
+    font-size: 16px; /*Esto hace que en el tablet tambien se vea de ese tamano*/
+  }
 }

@@ -7,7 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="c.css">
+    <link rel="stylesheet" href="c.css" />
     <title>Dashboard - Panel Administrativo</title>
   </head>
   <body>
@@ -25,49 +25,98 @@
     <!--OVERLAY JUNTO CON EL NAVBAR-->
     <!--SIDEBAR DESKTOP: Es el menu / la barra lateral Izquierda-->
     <section class="overlay"></section>
-    <aside class="sidebar">
-      <div class="sidebar-logo">Dashboard</div>
-      <ul>
-        <li>
-          <a href="#" class="activo" id="activo">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa-solid fa-folder"></i>
-            <span>Reportes</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
-    <!-- CONTENIDO PRINCIPAL -->
-    <main>
-      <!-- Navigation -->
-      <nav class="breadcrumb">
-        <span>Inicio</span>
-        <i class="fa-solid fa-chevron-right"></i>
-        <span>Reportes</span>
-      </nav>
-      <div class="main-contenido">
-        <p>AQUI VAMOS A ESCRIBIR EL CONTENIDO</p>
+    <!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">Dashboard</div>
+  <ul>
+    <li>
+      <a href="#" onclick="mostrarSeccion('dashboard')" class="activo">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="mostrarSeccion('empleados')">
+        <i class="fa-solid fa-user"></i>
+        <span>Empleados</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="mostrarSeccion('asistencia')">
+        <i class="fa-solid fa-clipboard-user"></i>
+        <span>Asistencia</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main>
+
+  <section id="dashboard" class="contenido activo">
+    <h1>Dashboard</h1>
+
+    <section class="dash-informacion">
+      <div class="card-Azul">
+        <h3>Total de Empleados</h3>
+        <p>120</p>
       </div>
-    </main>
-    <script>
-  const btn = document.querySelector(".hamburguer");
-  const sidebar = document.querySelector(".sidebar");
-  const overlay = document.querySelector(".overlay");
 
-  btn.addEventListener("click", () => {
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
+      <div class="card-verde">
+        <h3>Asistencias Hoy</h3>
+        <p>45</p>
+      </div>
+
+      <div class="card-rojo">
+        <h3>Faltas</h3>
+        <p>4</p>
+      </div>
+
+      <div class="card-morado">
+        <h3>Tardanza</h3>
+        <p>12</p>
+      </div>
+    </section>
+  </section>
+
+  <section id="empleados" class="contenido">
+    <h1>Empleados</h1>
+  </section>
+
+  <section id="asistencia" class="contenido">
+    <h1>Asistencia</h1>
+    </section>
+
+  </section>
+
+</main>
+<script>
+function mostrarSeccion(id) {
+  // Oculta todo
+  document.querySelectorAll('.contenido').forEach(sec => {
+    sec.classList.remove('activo');
   });
 
-  overlay.addEventListener("click", () => {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-  });
+  // Muestra la seleccionada
+  document.getElementById(id).classList.add('activo');
+}
 </script>
+    <script>
+      const btn = document.querySelector(".hamburguer");
+      const sidebar = document.querySelector(".sidebar");
+      const overlay = document.querySelector(".overlay");
+
+      btn.addEventListener("click", () => {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
   </body>
 </html>

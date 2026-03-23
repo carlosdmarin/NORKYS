@@ -1,19 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 /* RESET básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Poppins, sans-serif;
+  font-family: Ubuntu;
 }
-
+body{
+  background-color: #E9E9E9;
+}
 /* TOPBAR */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0f172a;
+  background: #184c78;
   color: white;
   padding: 15px;
+}
+.topbar .title-business {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
 /* BOTÓN */
@@ -32,7 +45,7 @@
   left: -250px; /* oculto */
   width: 250px;
   height: 100%;
-  background: #1e293b;
+  background: #184c78;
   color: white;
   padding: 20px;
   transition: 0.3s ease;
@@ -51,7 +64,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: none;
   z-index: 900;
 }
@@ -82,33 +95,168 @@ main {
   padding: 20px;
 }
 
-/* DESKTOP */
-@media(min-width: 768px) {
+/* para las secciones */
+.contenido {
+  display: none;
+}
+
+.contenido.activo {
+  display: block;
+}
+/* ============================= */
+/* CARDS DE INFORMACIÓN */
+/* ============================= */
+
+/* CONTENEDOR DE LAS CARDS */
+.dash-informacion {
+  display: grid; /* usamos grid para ordenar las cards */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  gap: 20px; /* espacio entre cards */
+  margin: 20px; /* margen externo */
+}
+
+/* ESTILO GENERAL DE TODAS LAS CARDS */
+.dash-informacion div {
+  padding: 20px; /* espacio interno */
+  border-radius: 5px; /* bordes redondeados */
+  color: #fff; /* texto blanco */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* sombra suave */
+  transition: 0.3s; /* animación suave */
+  cursor: pointer; /* cambia el cursor */
+}
+
+/* EFECTO HOVER (cuando pasas el mouse) */
+.dash-informacion div:hover {
+  transform: translateY(-5px); /* se eleva un poco */
+}
+
+/* ESTILO DE LOS TÍTULOS */
+.dash-informacion h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  /* justify-content no hace efecto aquí porque no es flex */
+}
+
+/* ESTILO DE LOS NÚMEROS */
+.dash-informacion p {
+  font-size: 45px;
+  font-weight: bold;
+}
+
+/* COLORES DE CADA CARD */
+.card-Azul {
+  background: linear-gradient(#056CF2); /* azul */
+}
+
+.card-verde {
+  background: linear-gradient(#00B3AD); /* verde */
+}
+
+.card-rojo {
+  background: linear-gradient(#F25C57); /* rojo */
+}
+
+.card-morado {
+  background: linear-gradient(#8557F2); /* morado */
+}
+
+
+/* ============================= */
+/* TABLET (768px en adelante) */
+/* ============================= */
+@media (min-width: 768px) {
+
+  /* Sidebar más pequeño tipo íconos */
   .sidebar {
     left: 0;
-    
-    ;
-
+    width: 100px;
   }
 
+  /* Ocultamos textos del menú */
+  .sidebar ul li a span {
+    display: none;
+  }
+
+  /* Ocultamos logo */
+  .sidebar-logo {
+    border-color: blue; /* esto parece debug, puedes quitarlo */
+    width: 100%;
+    height: 10%;
+    display: none;
+  }
+
+  /* Íconos grandes para modo tablet */
+  .sidebar ul li a i {
+    font-size: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  /* Quitamos overlay */
   .overlay {
     display: none !important;
   }
 
+  /* Ajustamos el contenido principal */
+  main {
+    margin-left: 100px;
+  }
+
+  /* Ocultamos topbar */
+  .topbar {
+    display: none;
+  }
+
+  /* Cards en 2 columnas */
+  .dash-informacion {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* ============================= */
+/* MOBILE (celulares) */
+/* ============================= */
+@media (max-width: 480px) {
+
+  /* Cards en una sola columna */
+  .dash-informacion {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================= */
+/* DESKTOP (pantallas grandes) */
+/* ============================= */
+@media (min-width: 1280px) {
+
+  /* Volvemos a 4 columnas */
+  .dash-informacion {
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 50px;
+  }
+
+  /* Sidebar completo */
+  .sidebar {
+    left: 0;
+    width: 220px;
+  }
+
+  /* Mostramos nuevamente los textos */
+  .sidebar ul li a span {
+    display: inline;
+  }
+
+  /* Ajustamos contenido */
   main {
     margin-left: 250px;
   }
 
-  .topbar {
-    display: none;
+  /* Restauramos tamaño normal de íconos (evita heredar tablet) */
+  .sidebar ul li a i {
+    font-size: 24px;
+    margin: 0;
   }
- 
+
 }
-
-
-
-
-
-
-
-

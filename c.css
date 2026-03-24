@@ -372,28 +372,6 @@ main {
   object-fit: contain;
   margin-bottom: 20px;
 }
-/* PARA QUE EL LOGO SEA RESPONSIVE */
-/*  CELULAR */
-@media (max-width: 480px) {
-  .logo-loader {
-    width: 140px;
-  }
-}
-
-/*  TABLET */
-@media (min-width: 481px) and (max-width: 1024px) {
-  .logo-loader {
-    width: 180px;
-  }
-}
-
-/*  DESKTOP */
-@media (min-width: 1025px) {
-  .logo-loader {
-    width: 220px;
-  }
-}
-
 
 .loader {
   position: fixed;

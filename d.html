@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <!-- CARGANDO -->
+    <!-- PANTALLA CARGANDO NORKY'S-->
     <div class="loader">
       <img src="img/norkys-37377-Photoroom.png" class="logo-loader">
       <div class="spinner"></div>
@@ -29,7 +29,6 @@
     <!-- TOPBAR (solo móvil) -->
     <!-- ============================= -->
     <section class="topbar">
-      <!-- Nombre del negocio -->
       <div class="title-business">
         <span> NORKYS SAC</span>
       </div>
@@ -37,8 +36,8 @@
       <!-- Botón hamburguesa -->
       <div class="btn-menu">
         <button class="hamburguer">
+           <!-- icono -->
           <i class="fa-solid fa-bars"></i>
-          <!-- icono -->
         </button>
       </div>
     </section>
@@ -54,13 +53,12 @@
     <aside class="sidebar">
       <!-- Logo o título -->
       <div class="sidebar-logo">Dashboard</div>
-
       <ul>
         <!-- DASHBOARD -->
         <li class="menu-item">
           <a href="#" onclick="mostrarSeccion('dashboard')">
             <i class="fa-solid fa-house"></i>
-            <span>Dashboard</span>
+            <span>Inicio</span>
           </a>
         </li>
 
@@ -70,7 +68,7 @@
           <a href="#" onclick="toggleSubmenu(event)">
             <i class="fa-solid fa-user"></i>
             <span>Empleados</span>
-            <!-- Flecha -->
+            <!-- Flecha Icono -->
             <i class="fa-solid fa-chevron-down arrow"></i>
           </a>
 
@@ -407,29 +405,13 @@
         }, 1500); // tiempo del loader (1.5 segundos)
       });
     </script>
-    <!-- DataTables (usa jQuery) -->
-    <script>
-      $(document).ready(function () {
-        $("#tabla-empleados").DataTable({
-          responsive: true,
-        });
-      });
-    </script>
-
-    <!-- Inicialización básica -->
-    <script>
-      $(document).ready(function () {
-        $("#tabla-empleados").DataTable();
-      });
-    </script>
-
     <!-- FORMULARIO -->
     <script>
       document
         .querySelector(".form-empleado")
         .addEventListener("submit", function (e) {
           e.preventDefault(); // evita recargar
-          alert("Empleado registrado correctamente 🔥");
+          alert("Empleado registrado correctamente");
         });
     </script>
 
@@ -453,17 +435,6 @@
 
         const item = e.currentTarget.parentElement;
         item.classList.toggle("active");
-      }
-    </script>
-
-    <!-- DUPLICADO DE FUNCIÓN -->
-    <script>
-      function mostrarSeccion(id) {
-        document.querySelectorAll(".contenido").forEach((sec) => {
-          sec.classList.remove("activo");
-        });
-
-        document.getElementById(id).classList.add("activo");
       }
     </script>
 

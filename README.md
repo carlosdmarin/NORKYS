@@ -58,6 +58,21 @@ Solucion tecnologica: Desarrollar un sistema web utilizando Java Spring Boot y M
 - Draw.io (diagramas)
 
 
+##Estructura del proyecto
+
+```
+ProyectoNORKYS/
+├── backend/          → Spring Boot (Java)
+│   ├── src/
+│   ├── pom.xml
+│   └── ...
+├── frontend/         → HTML, CSS, JS
+│   ├── css/
+│   ├── js/
+│   └── index.html
+```
+
+
 ## Base de datos
  
 El sistema cuenta con 4 tablas principales:

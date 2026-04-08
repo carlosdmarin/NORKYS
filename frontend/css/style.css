@@ -1,0 +1,1000 @@
+/* IMPORTAMOS FUENTES DE GOOGLE */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+/* ============================= */
+/* ============================= */
+* {
+    margin: 0; /* elimina márgenes por defecto */
+    padding: 0; /* elimina relleno por defecto */
+    box-sizing: border-box; /* incluye padding y border en el tamaño */
+    font-family: Ubuntu; /* fuente principal */
+}
+
+/* FONDO GENERAL */
+body {
+    background-color: #e9e9e9; /* color gris claro */
+    font-family: Ubuntu;
+}
+
+/* ============================= */
+/* TOPBAR */
+/* ============================= */
+.topbar {
+    display: flex; /* usamos flexbox */
+    align-items: center; /* centra verticalmente */
+    background: #184c78; /* color azul */
+    color: white;
+    justify-content: flex-start;
+    position: fixed;
+    height: 56px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    padding: 0 20px;
+}
+
+/* TÍTULO CENTRADO */
+.topbar .title-business {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* centra horizontalmente */
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* BOTÓN HAMBURGUESA */
+.hamburguer {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ============================= */
+/* SIDEBAR */
+/* ============================= */
+.sidebar {
+    position: fixed; /* fijo en pantalla */
+    top: 0;
+    left: -250px; /* oculto fuera de pantalla */
+    width: 250px;
+    height: 100%;
+    background: #184c78;
+    color: white;
+    padding: 20px;
+    transition: 0.3s ease; /* animación */
+    z-index: 1000;
+}
+
+/* CUANDO EL SIDEBAR SE ABRE */
+.sidebar.active {
+    left: 0;
+}
+
+/* ============================= */
+/* OVERLAY (fondo oscuro) */
+/* ============================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* oculto */
+    z-index: 900;
+}
+
+/* CUANDO SE ACTIVA */
+.overlay.active {
+    display: block;
+}
+
+/* ============================= */
+/* LINKS DEL SIDEBAR */
+/* ============================= */
+.sidebar ul {
+    list-style: none; /* quitamos viñetas */
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    margin: 15px 0; /* espacio entre items */
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none; /* sin subrayado */
+    display: flex;
+    gap: 10px; /* espacio entre icono y texto */
+}
+
+/* ============================= */
+/* CONTENIDO PRINCIPAL */
+/* ============================= */
+main {
+    padding: 20px;
+}
+
+/* SECCIONES OCULTAS */
+.contenido {
+    display: none;
+}
+
+/* SECCIÓN ACTIVA */
+.contenido.activo {
+    display: block;
+}
+
+/* ============================= */
+/* CARDS DE INFORMACIÓN */
+/* ============================= */
+
+/* CONTENEDOR */
+.dash-informacion {
+    display: grid; /* usamos grid */
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 20px; /* separación */
+    margin: 20px;
+}
+
+/* CARDS */
+.dash-informacion div {
+    padding: 20px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* sombra */
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* EFECTO HOVER */
+.dash-informacion div:hover {
+    transform: translateY(-5px); /* se eleva */
+}
+
+/* TÍTULO */
+.dash-informacion h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* NÚMEROS */
+.dash-informacion p {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+/* COLORES */
+.card-Azul {
+    background: linear-gradient(#056cf2);
+}
+.card-verde {
+    background: linear-gradient(#00b3ad);
+}
+.card-rojo {
+    background: linear-gradient(#f25c57);
+}
+.card-morado {
+    background: linear-gradient(#8557f2);
+}
+
+/* ============================= */
+/* SUBMENÚ */
+/* ============================= */
+.submenu {
+    max-height: 0; /* oculto */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 15px;
+}
+
+/* CUANDO SE ABRE */
+.menu-item.active .submenu {
+    max-height: 200px;
+}
+
+/* FLECHA */
+.arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+/* TAMANO DE LA FLECHA DE EL SUBMENU  EMPLEADOS*/
+.menu-item .arrow {
+    font-size: 16px; /*Esto hace que en el tablet tambien se vea de ese tamano*/
+}
+/* ROTACIÓN */
+.menu-item.active .arrow {
+    transform: rotate(180deg); /*Hace que gire la flechita*/
+}
+
+/* ALINEACIÓN */
+.menu-item a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* SUBMENU LINKS */
+.submenu a {
+    display: block;
+    padding: 5px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ============================= */
+/* TABLAS */
+/* ============================= */
+#tabla-empleados {
+    margin-top: 20px;
+}
+
+/* CONTENEDOR */
+.tabla-container {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* TÍTULO */
+.tabla-container h2 {
+    margin-bottom: 15px;
+}
+
+/* TABLA */
+.tabla-asistencia {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* HEADER */
+.tabla-asistencia thead {
+    background: #d9d9de;
+}
+
+/* ENCABEZADOS */
+.tabla-asistencia th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* CELDAS */
+.tabla-asistencia td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ESTADOS */
+.estado {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* HOVER FILAS */
+.tabla-asistencia tbody tr:hover {
+    background: #f9f9f9;
+}
+/* DISENO DE LA TABLA EMPLEADOS */
+.tabla-empleados {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* HEADER */
+.tabla-empleados thead {
+    background: #d9d9de;
+}
+
+.tabla-empleados th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* FILAS */
+.tabla-empleados td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* HOVER */
+.tabla-empleados tbody tr:hover {
+    background: #f9f9f9;
+}
+
+
+
+.btn-editar {
+    background: #3498db;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-editar:hover {
+    background: #2980b9;
+}
+
+.btn-eliminar {
+    background: #e74c3c;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-eliminar:hover {
+    background: #c0392b;
+}
+
+/*BOTON GUARDAR ASISTENCIA*/
+.btn-guardar-asistencia {
+    background-color: #4CAF50; /* Verde atractivo */
+    color: #fff;               /* Texto blanco */
+    border: none;              /* Sin borde */
+    border-radius: 8px;        /* Esquinas redondeadas */
+    padding: 12px 24px;        /* Alto y ancho del botón */
+    font-size: 16px;           /* Texto legible */
+    font-weight: 600;          /* Un poquito más de fuerza */
+    cursor: pointer;           /* Mano al pasar por encima */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra ligera */
+    margin: 20px auto;
+}
+
+/* Hover: cuando el mouse pasa encima */
+.btn-guardar-asistencia:hover {
+    background-color: #45a049; /* Verde más oscuro */
+    transform: translateY(-2px); /* Efecto levantado */
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Active: cuando lo clickeas */
+.btn-guardar-asistencia:active {
+    background-color: #3e8e41; /* Verde más profundo */
+    transform: translateY(1px); /* Presionado */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* ============================= */
+/* HISTORIAL DE ASISTENCIA       */
+/* ============================= */
+
+/* Contenedor general del historial */
+.container-historial {
+    background: #f5f5f5; /* fondo gris claro */
+    padding: 20px;        /* espacio interno */
+    border-radius: 12px;  /* bordes redondeados */
+    margin-top: 20px;     /* separación superior */
+}
+
+/* ============================= */
+/* FILTRO DE BUSQUEDA / FECHA   */
+/* ============================= */
+.filtro-historial {
+    display: flex;        /* alineación horizontal */
+    align-items: center;  /* centrar verticalmente */
+    gap: 10px;            /* espacio entre elementos */
+    margin-bottom: 15px;  /* separación debajo del filtro */
+    font-weight: 500;     /* texto semi-bold */
+}
+
+/* Input de fecha dentro del filtro */
+.filtro-historial input[type="date"] {
+    padding: 8px 12px;    /* espacio interno */
+    border-radius: 6px;   /* bordes redondeados */
+    border: 1px solid #ccc; /* borde gris */
+    outline: none;        /* sin borde al hacer focus por defecto */
+}
+
+/* ============================= */
+/* SCROLL HORIZONTAL PARA TABLA  */
+/* ============================= */
+.tabla-scroll {
+    overflow-x: auto;     /* permite scroll horizontal si la tabla es más ancha */
+}
+
+/* ============================= */
+/* TABLA HISTORIAL               */
+/* ============================= */
+.tabla-historial-pro {
+    width: 100%;           /* ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* unir bordes */
+    background: #fff;      /* fondo blanco */
+    border-radius: 10px;   /* esquinas redondeadas */
+    overflow: hidden;      /* recortar bordes de celdas */
+}
+
+/*Los estados del historial*/
+.estado-asistio {
+    color: green;
+    font-weight: bold;
+}
+
+.estado-tardanza {
+    color: orange;
+    font-weight: bold;
+}
+
+.estado-falta {
+    color: red;
+    font-weight: bold;
+}
+/* ============================= */
+/* CABECERAS DE LA TABLA         */
+/* ============================= */
+.tabla-historial-pro thead {
+    background: #d9d9de; /* gris medio para la fila de headers */
+}
+
+.tabla-historial-pro th {
+    padding: 15px;       /* espacio interno */
+    text-align: left;    /* alineación izquierda */
+    font-weight: bold;   /* negrita */
+}
+
+/* ============================= */
+/* FILAS DE LA TABLA             */
+/* ============================= */
+.tabla-historial-pro td {
+    padding: 15px;       /* espacio interno */
+    border-bottom: 1px solid #ddd; /* línea divisoria entre filas */
+}
+
+/* Hover: cambio de color al pasar mouse */
+.tabla-historial-pro tbody tr:hover {
+    background: #f0f8ff; /* azul clarito */
+}
+
+/* ============================= */
+/* ESTADOS DE ASISTENCIA         */
+/* ============================= */
+.estado {
+    padding: 6px 12px;    /* espacio interno */
+    border-radius: 6px;   /* bordes redondeados */
+    font-weight: bold;    /* negrita */
+    font-size: 14px;      /* tamaño de fuente */
+    text-align: center;   /* centrado */
+}
+
+/* Estado: asistió */
+.estado.asistio {
+    background: #b9e5c9;  /* verde clarito */
+    color: #1e7e34;       /* verde oscuro para texto */
+}
+
+/* Estado: llegó tarde */
+.estado.tarde {
+    background: #f8c291;  /* naranja clarito */
+    color: #a84300;       /* naranja oscuro */
+}
+
+/* Estado: ausente */
+.estado.ausente {
+    color: #c0392b;       /* rojo */
+}
+
+/* ============================= */
+/* RESPONSIVE: MÓVIL (<=768px)  */
+/* ============================= */
+@media (max-width: 768px) {
+    /* Ocultar headers */
+    .tabla-historial-pro thead {
+        display: none;
+    }
+
+    /* Hacer tabla, tbody, tr, td tipo bloque para que se vea bien en móvil */
+    .tabla-historial-pro,
+    .tabla-historial-pro tbody,
+    .tabla-historial-pro tr,
+    .tabla-historial-pro td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Filas con fondo claro, separación y padding */
+    .tabla-historial-pro tr {
+        background: #f9f9f9;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    /* Celdas: flex para separar label y valor */
+    .tabla-historial-pro td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+
+    /* Antes de cada valor, mostrar label de columna */
+    .tabla-historial-pro td::before {
+        content: attr(data-label); /* toma el valor de data-label en HTML */
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Ajuste extra para estados */
+    .estado {
+        margin-top: 10px;
+    }
+}
+/* ============================= */
+/* FIN HISTORIAL ASISTENCIA      */
+
+
+/* MÓVIL <=768px */
+@media (max-width: 768px) {
+    .tabla-asistencia {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tabla-asistencia thead {
+        display: none; /* ocultamos el header */
+    }
+
+    .tabla-asistencia tbody,
+    .tabla-asistencia tr,
+    .tabla-asistencia td {
+        display: block; /* hacemos cada celda un bloque */
+        width: 100%;
+    }
+
+    .tabla-asistencia tr {
+        margin-bottom: 12px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .tabla-asistencia td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        font-size: 15px;
+        border-bottom: none;
+    }
+
+    /* Nombre de columna antes del valor */
+    .tabla-asistencia td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+        width: 40%;
+        flex-shrink: 0;
+    }
+
+    /* Estado separado abajo */
+    .estado {
+        width: auto;
+        margin-top: 8px;
+    }
+}
+
+
+/* CARGANGO SISTEMA  */
+/* LOADER PANTALLA COMPLETA */
+/* logo de NORKYS */
+.logo-loader {
+    width: 200px;       /* tamaño base */
+    max-width: 80%;     /* nunca se desborda */
+    height: auto;       /* mantiene proporción */
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #184c78; /* mismo azul de tu sistema */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    z-index: 9999;
+}
+
+/* SPINNER */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ffffff50;
+    border-top: 5px solid #fff;
+    border-radius: 50%;
+    animation: girar 1s linear infinite;
+}
+
+/* ANIMACIÓN */
+@keyframes girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* TEXTO */
+.loader p {
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+/* OCULTAR */
+.loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+}
+@media (max-width: 768px) {
+
+    .tabla-empleados thead {
+        display: none;
+    }
+
+    .tabla-empleados,
+    .tabla-empleados tbody,
+    .tabla-empleados tr,
+    .tabla-empleados td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-empleados tr {
+        background: #dcdcdc;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .tabla-empleados td {
+        border: none;
+        padding: 5px 0;
+        font-size: 16px;
+    }
+
+    /* Nombre destacado */
+    .tabla-empleados td:nth-child(2) {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+}
+/* ============================= */
+/* TABLET (>=768px) */
+/* ============================= */
+@media (min-width: 768px) {
+    /* SIDEBAR COMPACTO */
+    .sidebar {
+        left: 0;
+        width: 100px;
+    }
+
+    /* OCULTAR TEXTO */
+    .sidebar ul li a span {
+        display: none;
+    }
+
+    /* OCULTAR LOGO */
+    .sidebar-logo {
+        display: none;
+    }
+
+    /* ICONOS GRANDES */
+    .sidebar ul li a i {
+        font-size: 60px;
+        margin: 40px 0;
+    }
+    /* QUITAR OVERLAY */
+    .overlay {
+        display: none !important;
+    }
+
+    /* AJUSTAR CONTENIDO */
+    main {
+        margin-left: 100px;
+    }
+
+    /* OCULTAR TOPBAR */
+    .topbar {
+        display: none;
+    }
+
+    /* CARDS EN 2 COLUMNAS */
+    .dash-informacion {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/*  */
+.asistencia-container {
+    padding: 20px;
+}
+
+.tabla-asistencia-pro {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* HEADER */
+.tabla-asistencia-pro thead {
+    background: #f1f1f1;
+}
+
+.tabla-asistencia-pro th {
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+    color: #555;
+}
+
+/* FILAS */
+.tabla-asistencia-pro td {
+    padding: 18px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+/* COLUMNA ESTUDIANTE */
+.col-estudiante {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.col-estudiante img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* ICONOS */
+/* HOVER */
+.tabla-asistencia-pro tbody tr:hover {
+    background: #fafafa;
+}
+
+.celda-estado {
+    cursor: pointer;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.celda-estado i {
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+/* Hover bonito */
+.celda-estado:hover {
+    background-color: #f0f0f0;
+}
+
+/* ACTIVO (el cuadrito que querías) */
+.celda-estado.activo {
+    background-color: #dfefff;
+    border: 2px solid #4da6ff;
+}
+
+.celda-estado.activo i {
+    opacity: 1;
+}
+
+/* Colores por estado */
+.celda-estado.activo .presente {
+    color: green;
+}
+
+.celda-estado.activo .atrasado {
+    color: orange;
+}
+
+.celda-estado.activo .ausente {
+    color: red;
+}
+/* para que las asistencias sean responsives  */
+@media (max-width: 768px) {
+    .tabla-asistencia-pro thead {
+        display: none;
+    }
+
+    .tabla-asistencia-pro,
+    .tabla-asistencia-pro tbody,
+    .tabla-asistencia-pro tr,
+    .tabla-asistencia-pro td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-asistencia-pro tr {
+        margin-bottom: 15px;
+        background: #f5f5f5;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .tabla-asistencia-pro td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+    }
+
+    .col-estudiante {
+        font-weight: bold;
+    }
+}
+/* ============================= */
+/* CELULAR (<=768px) */
+/* ============================= */
+@media (max-width: 768px) {
+    /* OCULTAR HEADER */
+    .tabla-asistencia thead {
+        display: none;
+    }
+
+    /* CONVERTIR TABLA A BLOQUES */
+    .tabla-asistencia,
+    .tabla-asistencia tbody,
+    .tabla-asistencia tr,
+    .tabla-asistencia td {
+        display: block;
+        width: 100%;
+    }
+
+    /* FILA COMO CARD */
+    .tabla-asistencia tr {
+        background: #dcdcdc;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    /* CELDAS */
+    .tabla-asistencia td {
+        border: none;
+        padding: 5px 0;
+        font-size: 16px;
+    }
+
+    /* OCULTAR COLUMNAS */
+    .tabla-asistencia td:nth-child(2),
+    .tabla-asistencia td:nth-child(3) {
+        display: none;
+    }
+
+    /* NOMBRE GRANDE */
+    .tabla-asistencia td:nth-child(1) {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    /* UNIR ENTRADA Y SALIDA */
+    .tabla-asistencia td:nth-child(4)::after {
+        content: " - " attr(data-salida);
+    }
+
+    /* ESTADO */
+    .tabla-asistencia td:nth-child(6) {
+        margin-top: 10px;
+    }
+}
+
+/* ============================= */
+/* MOBILE PEQUEÑO (<=480px) */
+/* ============================= */
+@media (max-width: 480px) {
+    /* UNA COLUMNA */
+    .dash-informacion {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================= */
+/* FORMULARIO */
+/* ============================= */
+.form-empleado {
+    max-width: 500px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* GRUPOS */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* INPUTS */
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* BOTÓN */
+.btn-guardar {
+    margin-top: 10px;
+    padding: 12px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-guardar:hover {
+    background: #2980b9;
+}
+
+/* ============================= */
+/* DESKTOP (>=1280px) */
+/* ============================= */
+@media (min-width: 1280px) {
+    /* 4 COLUMNAS */
+    .dash-informacion {
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 50px;
+    }
+
+    /* SIDEBAR COMPLETO */
+    .sidebar {
+        left: 0;
+        width: 220px;
+    }
+
+    /* MOSTRAR TEXTO */
+    .sidebar ul li a span {
+        display: inline;
+    }
+
+    /* CONTENIDO */
+    main {
+        margin-left: 250px;
+    }
+
+    /* ICONOS NORMALES */
+    .sidebar ul li a i {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .menu-item .arrow {
+        font-size: 16px; /*Esto hace que en el tablet tambien se vea de ese tamano*/
+    }
+}

@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Configuración básica -->
+    <meta charset="UTF-8" />
+    <!-- Responsive (se adapta a celulares) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Iconos (Font Awesome) -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+
+    <!-- Nuestro CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Dashboard - Panel Administrativo</title>
+</head>
+
+<body>
+<!-- PANTALLA CARGANDO NORKY'S-->
+<div class="loader">
+    <img src="img/norkys-37377-Photoroom.png" class="logo-loader">
+    <div class="spinner"></div>
+    <p>Cargando sistema</p>
+</div>
+<!-- ============================= -->
+<!-- TOPBAR (solo móvil) -->
+<!-- ============================= -->
+<section class="topbar">
+    <div class="title-business">
+        <span> NORKYS SAC</span>
+    </div>
+
+    <!-- Botón hamburguesa -->
+    <div class="btn-menu">
+        <button class="hamburguer">
+            <!-- icono -->
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- OVERLAY (fondo oscuro) -->
+<!-- ============================= -->
+<section class="overlay"></section>
+
+<!-- ============================= -->
+<!-- SIDEBAR (menú lateral) -->
+<!-- ============================= -->
+<aside class="sidebar">
+    <!-- Logo o título -->
+    <div class="sidebar-logo">Dashboard</div>
+    <ul>
+        <!-- DASHBOARD -->
+        <li class="menu-item">
+            <a href="#" onclick="mostrarSeccion('dashboard')">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+
+        <!-- EMPLEADOS (con submenu) -->
+        <li class="menu-item">
+            <!-- Botón principal -->
+            <a href="#" onclick="toggleSubmenu(event)">
+                <i class="fa-solid fa-user"></i>
+                <span>Empleados</span>
+                <!-- Flecha Icono -->
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+
+            <!-- SUBMENU -->
+            <ul class="submenu">
+                <li>
+                    <a href="#" onclick="mostrarSeccion('ver-empleados')">
+                        Ver empleados
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="mostrarSeccion('registrar-empleados')">
+                        Registrar empleados
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- ASISTENCIA -->
+        <li class="menu-item">
+            <a href="#" onclick="mostrarSeccion('asistencia')">
+                <i class="fa-solid fa-clipboard-user"></i>
+                <span>Asistencia</span>
+            </a>
+        </li>
+        <!-- REPORTES -->
+        <li class="menu-item">
+            <a href="#" onclick="mostrarSeccion('reportes')">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<!-- ============================= -->
+<!-- CONTENIDO PRINCIPAL -->
+<!-- ============================= -->
+<main>
+    <!-- SECCIÓN: VER EMPLEADOS -->
+    <section id="ver-empleados" class="contenido">
+        <h1>Lista de empleados</h1>
+
+        <section class="tabla-container">
+            <table class="tabla-empleados">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Fecha</th>
+                    <th>Cargo</th>
+                    <th>Turno</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody id="tabla-empleados">
+                </tbody>
+            </table>
+        </section>
+    </section>
+
+    <!-- SECCIÓN: REGISTRAR EMPLEADOS -->
+    <section id="registrar-empleados" class="contenido">
+        <h1>Registrar empleado</h1>
+
+        <!-- FORMULARIO -->
+        <form id="formEmpleado" class="form-empleado">
+            <!-- NOMBRE -->
+            <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Antonio" required />
+            </div>
+
+            <!-- APELLIDO -->
+            <div class="form-group">
+                <label>Apellido completo</label>
+                <input type="text" id="apellido" placeholder="Ej: Ruiz Pérez" required />
+            </div>
+
+            <!-- DNI -->
+            <div class="form-group">
+                <label>DNI</label>
+                <input type="text" id="dni" placeholder="Ej: 12345678" required />
+            </div>
+
+            <!-- TELÉFONO -->
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" id="telefono" placeholder="Ej: 987654321" />
+            </div>
+
+            <!-- ÁREA -->
+            <div class="form-group">
+                <label>Área</label>
+                <select id="cargo">
+                    <option value="1">Encargado</option>
+                    <option value="2">Administrador</option>
+                    <option value="3">Cajero</option>
+                    <option value="4">Cocina</option>
+                    <option value="5">Producción</option>
+                    <option value="6">Cobrador</option>
+                    <option value="7">Personal de Servico</option>
+                </select>
+            </div>
+
+            <!-- TURNO -->
+            <div class="form-group">
+                <label>Turno</label>
+                <select id="turno">
+                    <option value="1">Mañana</option>
+                    <option value="2">Tarde</option>
+                    <option value="3">Noche</option>
+                </select>
+            </div>
+
+
+            <!-- BOTÓN -->
+            <button type="submit" class="btn-guardar">Guardar empleado</button>
+        </form>
+    </section>
+
+    <!-- ============================= -->
+    <!-- DASHBOARD -->
+    <!-- ============================= -->
+    <section id="dashboard" class="contenido activo">
+        <h1>Dashboard</h1>
+
+        <!-- CARDS -->
+        <section class="dash-informacion">
+            <div class="card-Azul">
+                <h3>Total de Empleados</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card-verde">
+                <h3>Asistencias Hoy</h3>
+                <p>45</p>
+            </div>
+
+            <div class="card-rojo">
+                <h3>Faltas</h3>
+                <p>4</p>
+            </div>
+
+            <div class="card-morado">
+                <h3>Tardanza</h3>
+                <p>12</p>
+            </div>
+        </section>
+
+        <!-- TABLA -->
+        <section class="tabla-container">
+            <h2>Registro de Asistencia</h2>
+
+            <table class="tabla-asistencia">
+                <!-- CABECERA -->
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Turno</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+
+                <!-- DATOS -->
+                <tbody>
+                <tr>
+                    <td>Juan Perez</td>
+                    <td>2026-09-16</td>
+                    <td>Dia</td>
+                    <td>08:00 AM</td>
+                    <td>05:00 PM</td>
+                    <td><span class="estado asistio">Asistio</span></td>
+                </tr>
+
+                <tr>
+                    <td>Alison Diaz</td>
+                    <td>2026-09-16</td>
+                    <td>Dia</td>
+                    <td>08:00 AM</td>
+                    <td>05:00 PM</td>
+                    <td><span class="estado asistio">Asistio</span></td>
+                </tr>
+
+                <tr>
+                    <td>Carlos Marin</td>
+                    <td>2026-09-16</td>
+                    <td>Tarde</td>
+                    <td>05:00 PM</td>
+                    <td>12:00 AM</td>
+                    <td><span class="estado asistio">Asistio</span></td>
+                </tr>
+
+                <tr>
+                    <td>Marcos Reategui</td>
+                    <td>2026-09-16</td>
+                    <td>Noche</td>
+                    <td>05:00 PM</td>
+                    <td>12:00 AM</td>
+                    <td><span class="estado asistio">Asistio</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+
+    <!-- SECCIÓN REGISTRO DE ASISTENCIA -->
+    <section id="empleados" class="contenido">
+        <h1>Empleados</h1>
+    </section>
+
+    <section id="asistencia" class="contenido">
+        <h1>Asistencia</h1>
+        <section class="asistencia-container">
+            <table class="tabla-asistencia-pro">
+                <thead>
+                <tr>
+                    <th>Empleado</th>
+                    <th>Hoy</th>
+                    <th>Presente</th>
+                    <th>Atrasado</th>
+                    <th>Ausente</th>
+                    <th>Justificado</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="col-estudiante">
+                        <img src="" alt="" />
+                        <span>Rodrigo Roberto Aguilar Api</span>
+                    </td>
+                    <td>-</td>
+                    <td><i class="fa-solid fa-check presente"></i></td>
+                    <td><i class="fa-regular fa-clock atrasado"></i></td>
+                    <td><i class="fa-solid fa-xmark ausente"></i></td>
+                    <td><i class="fa-solid fa-ban justificado"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-estudiante">
+                        <img src="" alt="" />
+                        <span>José Miguel Barrientos</span>
+                    </td>
+                    <td>-</td>
+                    <td><i class="fa-solid fa-check presente"></i></td>
+                    <td><i class="fa-regular fa-clock atrasado"></i></td>
+                    <td><i class="fa-solid fa-xmark ausente"></i></td>
+                    <td><i class="fa-solid fa-ban justificado"></i></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <!-- SECCION DE REPORTES -->
+    <section id="reportes" class="contenido">
+        <h1>Reportes</h1>
+    </section>
+</main>
+
+<!-- ============================= -->
+<!-- SCRIPTS -->
+<!-- ============================= -->
+<!-- LOADER DE PANTALLA -->
+<script>
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        setTimeout(() => {
+            loader.classList.add("hidden");
+        }, 1500); // tiempo del loader (1.5 segundos)
+    });
+</script>
+<!-- FORMULARIO -->
+<script>
+    document
+        .querySelector(".form-empleado")
+        .addEventListener("submit", function (e) {
+            e.preventDefault(); // evita recargar
+            alert("Empleado registrado correctamente");
+        });
+</script>
+
+<!-- CAMBIO DE SECCIONES -->
+<script>
+    function mostrarSeccion(id) {
+        event.preventDefault();
+
+        document.querySelectorAll(".contenido").forEach((sec) => {
+            sec.classList.remove("activo");
+        });
+
+        document.getElementById(id).classList.add("activo");
+
+        // AQUÍ ESTÁ LA MAGIA
+        if (id === "ver-empleados") {
+            cargarEmpleados();
+        }
+    }
+</script>
+
+<!-- SIDEBAR MÓVIL -->
+<script>
+    const btn = document.querySelector(".hamburguer");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.querySelector(".overlay");
+
+    // Abrir menú
+    btn.addEventListener("click", () => {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+    });
+
+    // Cerrar menú
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+    });
+</script>
+
+<!-- tablas empleado-->
+<script>
+    function cargarEmpleados() {
+        fetch("http://localhost:8080/api/empleados")
+            .then(response => response.json())
+            .then(data => {
+
+                const tabla = document.getElementById("tabla-empleados");
+                tabla.innerHTML = "";
+
+                data.forEach(emp => {
+                    tabla.innerHTML += `
+    <tr>
+        <td>${emp.id}</td>
+        <td>${emp.nombre}</td>
+        <td>${emp.apellido}</td>
+        <td>${emp.dni}</td>
+        <td class="telefono">${emp.telefono}</td>
+        <td class="fechaIngreso">${emp.fechaIngreso}</td>
+        <td class="cargo">${emp.cargo.nombre}</td>
+        <td class="turno">${emp.turno.nombre}</td>
+        <td>
+            <button class="btn-editar">
+             <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="btn-guardar" style="display:none;">
+            <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+           <button class="btn-eliminar">
+             <i class="fa-solid fa-trash"></i>️
+            </button>
+        </td>
+    </tr>
+`;
+                });
+
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabla = document.getElementById("tabla-empleados");
+
+        tabla.addEventListener("click", (e) => {
+            const target = e.target.closest("button");
+
+            if (!target) return;
+
+            const fila = target.closest("tr");
+
+            // BOTÓN EDITAR
+            if (target.classList.contains("btn-editar")) {
+                fila.querySelectorAll(".telefono, .cargo, .turno, .fechaIngreso").forEach(td => {
+
+                    if(td.classList.contains("cargo")) {
+                        td.innerHTML = `
+            <select class="editar-cargo">
+                <option value="1" ${td.innerText=="Encargado"?"selected":""}>Encargado</option>
+                <option value="2" ${td.innerText=="Administrador"?"selected":""}>Administrador</option>
+                <option value="3" ${td.innerText=="Cajero"?"selected":""}>Cajero</option>
+                <option value="4" ${td.innerText=="Cocina"?"selected":""}>Cocina</option>
+                <option value="5" ${td.innerText=="Producción"?"selected":""}>Producción</option>
+                <option value="6" ${td.innerText=="Cobrador"?"selected":""}>Cobrador</option>
+                <option value="7" ${td.innerText=="Personal de Servicio"?"selected":""}>Personal de Servicio</option>
+            </select>
+        `;
+                    } else if(td.classList.contains("turno")) {
+                        td.innerHTML = `
+            <select class="editar-turno">
+                <option value="1" ${td.innerText=="Mañana"?"selected":""}>Mañana</option>
+                <option value="2" ${td.innerText=="Tarde"?"selected":""}>Tarde</option>
+                <option value="3" ${td.innerText=="Noche"?"selected":""}>Noche</option>
+            </select>
+        `;
+                    } else if(td.classList.contains("fechaIngreso")) {
+                        const valorActual = td.innerText;
+                        td.innerHTML = `<input type="date" class="editar-fecha" value="${valorActual}">`;
+                    } else {
+                        td.setAttribute("contenteditable", "true");
+                        td.classList.add("editable");
+                    }
+
+                });
+
+                fila.querySelector(".btn-editar").style.display = "none";
+                fila.querySelector(".btn-guardar").style.display = "inline-block";
+
+            }
+            // BOTÓN GUARDAR
+            else if (target.classList.contains("btn-guardar")) {
+
+                const empleadoActualizado = {
+                    id: parseInt(fila.children[0].innerText),
+                    nombre: fila.children[1].innerText,
+                    apellido: fila.children[2].innerText,
+                    dni: fila.children[3].innerText,
+                    telefono: fila.querySelector(".telefono").innerText,
+                    fechaIngreso: fila.querySelector(".editar-fecha")
+                        ? fila.querySelector(".editar-fecha").value
+                        : fila.querySelector(".fechaIngreso").innerText,
+
+                    cargo: {
+                        id: parseInt(fila.querySelector(".editar-cargo").value)
+                    },
+
+                    turno: {
+                        id: parseInt(fila.querySelector(".editar-turno").value)
+                    }
+
+
+                };
+
+
+
+
+
+                // Volver a mostrar texto en lugar de select o input
+                if(fila.querySelector(".editar-cargo"))
+                    fila.querySelector(".cargo").innerText = fila.querySelector(".editar-cargo").selectedOptions[0].text;
+
+                if(fila.querySelector(".editar-turno"))
+                    fila.querySelector(".turno").innerText = fila.querySelector(".editar-turno").selectedOptions[0].text;
+
+                // REEMPLAZAR input de fecha por texto
+                if(fila.querySelector(".editar-fecha"))
+                    fila.querySelector(".fechaIngreso").innerText = fila.querySelector(".editar-fecha").value;
+
+                fila.querySelectorAll(".telefono, .cargo, .turno, .fechaIngreso").forEach(td => {
+                    td.removeAttribute("contenteditable");
+                    td.classList.remove("editable");
+                });
+
+                fila.querySelector(".btn-editar").style.display = "inline-block";
+                fila.querySelector(".btn-guardar").style.display = "none";
+
+                // Enviar a Spring Boot
+                fetch(`http://localhost:8080/api/empleados/${empleadoActualizado.id}`, {
+                    "method": "PUT",
+                    "headers": { "Content-Type": "application/json" },
+                    "body": JSON.stringify(empleadoActualizado)
+                })
+                    .then(res => res.json())
+                    .then(data => alert(`Empleado ${data.nombre} actualizado`))
+                    .catch(err => console.error(err));
+
+            }
+            // BOTÓN ELIMINAR
+            else if (target.classList.contains("btn-eliminar")) {
+
+                const id = fila.children[0].innerText;
+
+                if (confirm("¿Seguro que quieres eliminar este empleado?")) {
+
+                    fetch(`http://localhost:8080/api/empleados/${id}`, {
+                        method: "DELETE"
+                    })
+                        .then(() => {
+                            alert("Empleado eliminado correctamente");
+                            fila.remove();
+                        })
+                        .catch(err => console.error(err));
+                }
+            }
+        });
+    });
+</script>
+
+<!--Registrar EMPLEAOD -->
+
+<script>
+    const form = document.getElementById('formEmpleado');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // evita que recargue la página
+
+        const empleado = {
+            "nombre": document.getElementById('nombre').value,
+            "apellido": document.getElementById('apellido').value,
+            "dni": document.getElementById('dni').value,
+            "telefono": document.getElementById('telefono').value,
+            "cargo": { "id": parseInt(document.getElementById('cargo').value) },
+            "turno": { "id": parseInt(document.getElementById('turno').value) }
+        };
+        fetch('http://localhost:8080/api/empleados/registrar', {
+            "method": 'POST',
+            "headers": { 'Content-Type': 'application/json' },
+            "body": JSON.stringify(empleado)
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Empleado registrado: ' + data.nombre + ' ' + data.apellido);
+                form.reset();
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+<script>
+    function toggleSubmenu(e) {
+        e.preventDefault();
+
+        const item = e.currentTarget.parentElement;
+
+        item.classList.toggle("active");
+    }
+</script>
+
+
+</body>
+</html>

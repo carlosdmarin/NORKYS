@@ -93,4 +93,134 @@ El sistema cuenta con 4 tablas principales:
 ![Modelo Relacional](recursos/imagen2.png)
 
 
+### Cardinalidades
+EMPLEADO — CARGO (N:1) <br>
+Un empleado tiene un cargo, pero un cargo puede muchos empleados. <br>
+EMPLEADO — TURNO (N:1) <br>
+Un empleado tiene un turno, pero un turno puede tener muchos empleados. <br>
+EMPLEADO — ASISTENCIA (1:N) <br>
+Un empleado puede tener muchos registros de asistencia, pero un registro de asistencia pertenece a un empleado.
 
+| Entidad A | Relacion | Entidad B | Cardinalidad |
+|---|---|---|---|
+| EMPLEADO | tiene | CARGO | N:1 |
+| EMPLEADO | tiene | TURNO | N:1 |
+| EMPLEADO | tiene | ASISTENCIA | 1:N |
+
+
+ ### Base de datos
+ 
+El sistema cuenta con 4 tablas principales:
+
+```sql
+-- =============================================
+-- CREACIÓN DE LA BASE DE DATOS
+-- =============================================
+
+CREATE DATABASE IF NOT EXISTS NORKYS
+DEFAULT CHARACTER SET utf8mb4
+DEFAULT COLLATE utf8mb4_general_ci;
+
+USE NORKYS;
+
+-- =============================================
+-- TABLA: CARGO
+-- =============================================
+
+CREATE TABLE CARGO (
+    id_cargo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_cargo VARCHAR(50) NOT NULL
+);
+
+-- =============================================
+-- TABLA: TURNO
+-- =============================================
+
+CREATE TABLE TURNO (
+    id_turno INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(30) NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_fin TIME NOT NULL
+);
+
+-- =============================================
+-- TABLA: EMPLEADO
+-- =============================================
+
+CREATE TABLE EMPLEADO (
+    id_empleado INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    dni VARCHAR(8) NOT NULL,
+    telefono VARCHAR(15) NULL,
+    fecha_registro DATE NOT NULL,
+    estado ENUM('activo', 'inactivo') DEFAULT 'activo',
+    id_tipo INT NOT NULL,
+    id_turno INT NOT NULL,
+    FOREIGN KEY (id_tipo) REFERENCES CARGO(id_cargo),
+    FOREIGN KEY (id_turno) REFERENCES TURNO(id_turno)
+);
+
+-- =============================================
+-- TABLA: ASISTENCIA
+-- =============================================
+
+CREATE TABLE ASISTENCIA (
+    id_asistencia INT AUTO_INCREMENT PRIMARY KEY,
+    id_empleado INT NOT NULL,
+    fecha DATE NOT NULL,
+    hora_entrada TIME NULL,
+    hora_salida TIME NULL,
+    estado VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id_empleado) REFERENCES EMPLEADO(id_empleado) ON DELETE CASCADE,
+    UNIQUE KEY unique_asistencia_dia (id_empleado, fecha)
+);
+
+-- =============================================
+-- INSERCIÓN DE DATOS: CARGO
+-- =============================================
+
+INSERT INTO CARGO (nombre_cargo) VALUES
+('Cajero'),
+('Administrador'),
+('Personal de Servicio'),
+('Cocina'),
+('Producción'),
+('Cobradores'),
+('Encargado');
+
+-- =============================================
+-- INSERCIÓN DE DATOS: TURNO
+-- =============================================
+
+INSERT INTO TURNO (nombre, hora_inicio, hora_fin) VALUES
+('Turno 1', '08:00:00', '19:00:00'),
+('Turno 2', '19:00:00', '22:30:00');
+
+-- =============================================
+-- INSERCIÓN DE DATOS: EMPLEADO
+-- =============================================
+
+INSERT INTO EMPLEADO (nombre, apellido, dni, telefono, fecha_registro, estado, id_tipo, id_turno) VALUES
+('Carlos', 'Marin Panduro', '12345678', '987654321', '2026-02-27', 'activo', 2, 1),
+('Juan', 'Perez Gomez', '87654321', '912345678', '2026-02-27', 'activo', 1, 1),
+('Maria', 'Lopez Flores', '11122233', '998877665', '2026-02-27', 'activo', 4, 2),
+('Ana', 'Ramirez Torres', '44455566', '987123456', '2026-02-27', 'activo', 3, 1),
+('Luis', 'Encarnacion', '77788899', NULL, '2026-02-27', 'activo', 7, 1);
+
+-- =============================================
+-- INSERCIÓN DE DATOS: ASISTENCIA
+-- =============================================
+
+INSERT INTO ASISTENCIA (id_empleado, fecha, hora_entrada, hora_salida, estado) VALUES
+(1, '2026-02-27', '08:00:00', '19:00:00', 'asistió'),
+(2, '2026-02-27', '08:15:00', '19:00:00', 'tardanza'),
+(3, '2026-02-27', '19:00:00', '22:30:00', 'asistió'),
+(4, '2026-02-27', NULL, NULL, 'falta'),
+(1, '2026-02-28', '08:00:00', '19:00:00', 'asistió'),
+(2, '2026-02-28', '08:00:00', '19:00:00', 'asistió'),
+(3, '2026-02-28', '19:05:00', '22:30:00', 'tardanza');
+
+```
+
+---

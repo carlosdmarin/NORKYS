@@ -386,15 +386,15 @@ async function cargarAsistencias(fecha) {
             
             switch(asistencia.estado) {
                 case 'Asistio':
-                    estadoTexto = '✅ Asistió';
+                    estadoTexto = 'Asistió';
                     estadoClass = 'estado-asistio';
                     break;
                 case 'Tardanza':
-                    estadoTexto = '⏰ Tardanza';
+                    estadoTexto = 'Tardanza';
                     estadoClass = 'estado-tardanza';
                     break;
                 case 'Falta':
-                    estadoTexto = '❌ Falta';
+                    estadoTexto = 'Falta';
                     estadoClass = 'estado-falta';
                     break;
                 default:

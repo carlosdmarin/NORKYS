@@ -265,9 +265,9 @@ function cargarEmpleados() {
       });
   
 // ==========================================
-// 1. CARGAR EMPLEADOS (cuando abre la página)
+// 1. CARGAR EMPLEADOS (cuando se abre la página)
 // ==========================================
-fetch("http://localhost:8080/api/asistencia/empleados")  // ← NECESITAS CREAR ESTE ENDPOINT
+fetch("http://localhost:8080/api/asistencia/empleados") 
     .then((response) => response.json())
     .then((empleados) => {
         const tbody = document.querySelector(".tabla-asistencia-pro tbody");
@@ -289,7 +289,7 @@ fetch("http://localhost:8080/api/asistencia/empleados")  // ← NECESITAS CREAR 
     .catch((err) => console.error("Error al cargar empleados:", err));
 
 // ==========================================
-// 2. GUARDAR ASISTENCIA (cuando hace clic en el botón)
+// 2. GUARDAR ASISTENCIA
 // ==========================================
 document.querySelector(".btn-guardar-asistencia").addEventListener("click", () => {
     const filas = document.querySelectorAll(".tabla-asistencia-pro tbody tr");
@@ -300,21 +300,21 @@ document.querySelector(".btn-guardar-asistencia").addEventListener("click", () =
 
         let estado = null;
 
-        // Asumiendo que tienes lógica para saber qué ícono está activo
+    
         if (fila.children[1].classList.contains("activo")) {
-            estado = "Asistio";  // ← USA MAYÚSCULAS como en tu backend
+            estado = "Asistio";  // ← USAMOS MAYÚSCULAS como en el Backend
         } else if (fila.children[2].classList.contains("activo")) {
-            estado = "Tardanza";   // ← USA MAYÚSCULAS
+            estado = "Tardanza";   // ← USAMOS MAYÚSCULAS
         } else if (fila.children[3].classList.contains("activo")) {
-            estado = "Falta";   // ← USA MAYÚSCULAS
+            estado = "Falta";   // ← USAMOS MAYÚSCULAS
         }
 
         if (estado && idEmpleado) {
             asistencias.push({
                 empleado: { id: parseInt(idEmpleado) },
                 estado: estado,
-                horaEntrada: "08:00:00",  // ← TU BACKEND ESPERA ESTO
-                horaSalida: "17:00:00"    // ← TU BACKEND ESPERA ESTO
+                horaEntrada: "08:00:00",  // ← MI BACKEND ESPERA ESTO
+                horaSalida: "17:00:00"    // ← MI BACKEND ESPERA ESTO
             });
         }
     });
@@ -369,7 +369,7 @@ async function cargarAsistencias(fecha) {
         const asistencias = await response.json();
         console.log("Datos recibidos:", asistencias);
         
-        // Limpiar la tabla
+        //Esto limpia la tabla
         tablaBody.innerHTML = '';
         
         if (asistencias.length === 0) {
@@ -423,9 +423,8 @@ async function cargarAsistencias(fecha) {
     }
 }
 
-// Inicializar cuando la página esté lista
-// Elimina cualquier otro eventListener de DOMContentLoaded que tengas
-// y asegúrate que este sea el único
+
+//
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM cargado - Inicializando historial");
     

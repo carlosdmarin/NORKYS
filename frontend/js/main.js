@@ -333,10 +333,10 @@ document.querySelector(".btn-guardar-asistencia").addEventListener("click", () =
             return res.json();
         })
         .then((data) => {
-            alert("✅ Asistencia guardada correctamente");
+            alert("Asistencia guardada correctamente");
         })
         .catch((err) => {
-            alert("⚠️ Error, puede que ya marcó hoy o faltan datos");
+            alert("Error, puede que ya marcó hoy o faltan datos");
             console.error(err);
         });
 });
@@ -453,152 +453,80 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-// Función para cargar el dashboard
-async function cargarDashboard() {
+// ==========================================
+// FUNCIÓN ÚNICA PARA DASHBOARD (tabla + cards)
+// ==========================================
+async function cargarDashboardCompleto() {
     try {
-        // Llamo a mi API
-        const response = await fetch('http://localhost:8080/api/dashboard/estadisticas');
-        const data = await response.json();
+        const hoy = new Date().toISOString().split('T')[0];
         
-        console.log('Datos recibidos:', data); // Para depuración
+        // 1. Traer empleados
+        const resEmpleados = await fetch('http://localhost:8080/api/empleados');
+        const empleados = await resEmpleados.json();
         
-        //CARD 1: Total de Empleados (SIEMPRE se muestra)
-        document.getElementById('totalEmpleados').textContent = data.totalEmpleados;
+        // 2. Traer asistencias de hoy
+        const resAsistencias = await fetch(`http://localhost:8080/api/asistencia/historial?fecha=${hoy}`);
+        const asistencias = await resAsistencias.json();
         
-        // Verificamos si ya se tomó asistencia hoy
-        if (data.asistenciaTomadaHoy) {
-            //CARD 2: Asistieron Hoy
-            document.getElementById('asistieron').textContent = data.asistieron;
+        // 3. LLENAR TABLA
+        const tbody = document.querySelector('#dashboard .tabla-asistencia tbody');
+        if (tbody) {
+            tbody.innerHTML = '';
             
-            //CARD 3: Faltas
-            document.getElementById('faltaron').textContent = data.faltaron;
+            let totalAsistieron = 0;
+            let totalTardanza = 0;
+            let totalFaltaron = 0;
             
-            //CARD 4: Tardanza
-            document.getElementById('llegaronTarde').textContent = data.llegaronTarde;
-            
-            // Opcional: cambiar estilos para mostrar que hay datos
-            document.querySelectorAll('.card-verde, .card-rojo, .card-morado').forEach(card => {
-                card.style.opacity = '1';
+            empleados.forEach(emp => {
+                const asistenciaHoy = asistencias.find(a => a.empleado.id === emp.id);
+                
+                let estadoTexto = 'Sin registrar';
+                let estadoClass = 'sin-registrar';
+                
+                if (asistenciaHoy) {
+                    if (asistenciaHoy.estado === 'Asistio') {
+                        estadoTexto = 'Asistió';
+                        estadoClass = 'asistio';
+                        totalAsistieron++;
+                    } else if (asistenciaHoy.estado === 'Tardanza') {
+                        estadoTexto = 'Tardanza';
+                        estadoClass = 'tardanza';
+                        totalTardanza++;
+                    } else if (asistenciaHoy.estado === 'Falta') {
+                        estadoTexto = 'Faltó';
+                        estadoClass = 'falto';
+                        totalFaltaron++;
+                    }
+                } else {
+                    totalFaltaron++;
+                }
+                
+                const fila = `
+                    <tr>
+                        <td>${emp.nombre} ${emp.apellido}</td>
+                        <td>${hoy}</td>
+                        <td>${emp.turno?.nombre || 'Sin turno'}</td>
+                        <td>${formatearHora(emp.turno?.horaInicio)}</td>
+                        <td>${formatearHora(emp.turno?.horaFin)}</td>
+                        <td><span class="estado ${estadoClass}">${estadoTexto}</span></td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
             });
             
-        } else {
-            // Si NO se ha tomado asistencia, mostrar 0 o mensaje
-            document.getElementById('asistieron').textContent = '0';
-            document.getElementById('faltaron').textContent = '0';
-            document.getElementById('llegaronTarde').textContent = '0';
-            
-            //mostrar tooltip o mensaje
-            console.log(data.mensaje);
-            
-            //Se puede mostrar un mensaje flotante
-            mostrarMensaje(data.mensaje);
+            // 4. ACTUALIZAR CARDS
+            document.getElementById('totalEmpleados').textContent = empleados.length;
+            document.getElementById('asistieron').textContent = totalAsistieron;
+            document.getElementById('faltaron').textContent = totalFaltaron;
+            document.getElementById('llegaronTarde').textContent = totalTardanza;
         }
         
     } catch (error) {
         console.error('Error al cargar dashboard:', error);
-        // Mostrar error en los cards
-        document.getElementById('totalEmpleados').textContent = 'Error';
-        document.getElementById('asistieron').textContent = 'Error';
-        document.getElementById('faltaron').textContent = 'Error';
-        document.getElementById('llegaronTarde').textContent = 'Error';
     }
 }
 
-// Función opcional para mostrar mensaje
-function mostrarMensaje(mensaje) {
-    // Crear un toast o alerta suave
-    const toast = document.createElement('div');
-    toast.textContent = mensaje;
-    toast.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #ff9800;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        z-index: 1000;
-        animation: fadeInOut 3s ease;
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-// Cargar dashboard cuando la página esté lista
-document.addEventListener('DOMContentLoaded', cargarDashboard);
-
-//Actualizar cada 30 segundos
-setInterval(cargarDashboard, 30000);
-
-
-//
-// FETCH para mostrar empleados con su asistencia de HOY
-async function cargarAsistenciaHoy() {
-    try {
-        const hoy = new Date().toISOString().split('T')[0]; // 2026-04-15
-        
-        // Traer todas las asistencias de hoy
-        const responseAsistencia = await fetch(`http://localhost:8080/api/asistencia/historial?fecha=${hoy}`);
-        const asistencias = await responseAsistencia.json();
-        
-        // Traer todos los empleados
-        const responseEmpleados = await fetch('http://localhost:8080/api/empleados');
-        const empleados = await responseEmpleados.json();
-        
-        const tbody = document.querySelector('#dashboard .tabla-asistencia tbody');
-        tbody.innerHTML = '';
-        
-        // Recorrer cada empleado
-        empleados.forEach(emp => {
-            // Buscar si este empleado tiene asistencia registrada HOY
-            const asistenciaHoy = asistencias.find(a => a.empleado.id === emp.id);
-            
-            // Determinar estado
-            let estadoTexto = 'Sin registrar';
-            let estadoClass = 'sin-registrar';
-            
-            if (asistenciaHoy) {
-                if (asistenciaHoy.estado === 'Asistio') {
-                    estadoTexto = 'Asistió';
-                    estadoClass = 'asistio';
-                } else if (asistenciaHoy.estado === 'Tardanza') {
-                    estadoTexto = 'Tardanza';
-                    estadoClass = 'tardanza';
-                } else if (asistenciaHoy.estado === 'Falta') {
-                    estadoTexto = 'Faltó';
-                    estadoClass = 'falto';
-                }
-            }
-            
-            const fila = `
-                <tr>
-                    <td>${emp.nombre} ${emp.apellido}</td>
-                    <td>${hoy}</td>
-                    <td>${emp.turno?.nombre || 'Sin turno'}</td>
-                    <td>${formatearHora(emp.turno?.horaInicio)}</td>
-                    <td>${formatearHora(emp.turno?.horaFin)}</td>
-                    <td><span class="estado ${estadoClass}">${estadoTexto}</span></td>
-                </tr>
-            `;
-            tbody.innerHTML += fila;
-        });
-        
-        // Actualizar cards
-        const totalAsistieron = asistencias.filter(a => a.estado === 'Asistio').length;
-        const totalTardanza = asistencias.filter(a => a.estado === 'Tardanza').length;
-        const totalFaltaron = asistencias.filter(a => a.estado === 'Falta').length;
-        
-        document.getElementById('totalEmpleados').textContent = empleados.length;
-        document.getElementById('asistieron').textContent = totalAsistieron;
-        document.getElementById('faltaron').textContent = totalFaltaron;
-        document.getElementById('llegaronTarde').textContent = totalTardanza;
-        
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
+// Formatear hora (23:00:00 -> 11:00 PM)
 function formatearHora(hora) {
     if (!hora) return '--:--';
     const [h, m] = hora.split(':');
@@ -608,5 +536,10 @@ function formatearHora(hora) {
     return `${horaNum}:${m} ${periodo}`;
 }
 
-// Ejecutar
-cargarAsistenciaHoy();
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDashboardCompleto();
+});
+
+// Actualizar cada 30 segundos
+setInterval(cargarDashboardCompleto, 30000);

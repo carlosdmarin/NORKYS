@@ -1,3 +1,12 @@
+// Función para obtener fecha local (NO UTC)
+function getFechaLocal() {
+    const fecha = new Date();
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 // LOADER DE PANTALLA
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loader");
@@ -294,6 +303,7 @@ fetch("http://localhost:8080/api/asistencia/empleados")
 document.querySelector(".btn-guardar-asistencia").addEventListener("click", () => {
     const filas = document.querySelectorAll(".tabla-asistencia-pro tbody tr");
     const asistencias = [];
+    const hoy = getFechaLocal(); 
 
     filas.forEach((fila) => {
         const idEmpleado = fila.querySelector(".col-estudiante").dataset.id;
@@ -313,10 +323,11 @@ document.querySelector(".btn-guardar-asistencia").addEventListener("click", () =
             asistencias.push({
                 empleado: { id: parseInt(idEmpleado) },
                 estado: estado,
-                horaEntrada: "08:00:00",  // ← MI BACKEND ESPERA ESTO
-                horaSalida: "17:00:00"    // ← MI BACKEND ESPERA ESTO
+                fecha: hoy
+     
             });
         }
+        
     });
 
     console.log("Datos a enviar:", asistencias);
@@ -386,15 +397,15 @@ async function cargarAsistencias(fecha) {
             
             switch(asistencia.estado) {
                 case 'Asistio':
-                    estadoTexto = 'Asistió';
+                    estadoTexto = ' <i class="fa-solid fa-check"></i> Asistió';
                     estadoClass = 'estado-asistio';
                     break;
                 case 'Tardanza':
-                    estadoTexto = 'Tardanza';
+                    estadoTexto = '<i class="fa-solid fa-clock"></i> Tardanza';
                     estadoClass = 'estado-tardanza';
                     break;
                 case 'Falta':
-                    estadoTexto = 'Falta';
+                    estadoTexto = ' <i class="fa-solid fa-x"></i> Falta';
                     estadoClass = 'estado-falta';
                     break;
                 default:
@@ -436,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Establecer fecha actual
-    const hoy = new Date().toISOString().split('T')[0];
+    const hoy = getFechaLocal();
     fechaInput.value = hoy;
     console.log("Fecha actual:", hoy);
     
@@ -458,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ==========================================
 async function cargarDashboardCompleto() {
     try {
-        const hoy = new Date().toISOString().split('T')[0];
+        const hoy = getFechaLocal();
         
         // 1. Traer empleados
         const resEmpleados = await fetch('http://localhost:8080/api/empleados');

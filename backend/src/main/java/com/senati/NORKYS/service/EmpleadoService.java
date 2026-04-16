@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired; //Esto es para in
 import org.springframework.stereotype.Service; //Esta clase es la logica del negocio
 import com.senati.NORKYS.repository.EmpleadoRepository; //Importamos el repository ya que el se comunica con la DB
 
-import java.util.List; //Importamos esto ya que vamos a devolver muchos empleados
+import java.util.List; 
 
 @Service
 @Transactional
 public class EmpleadoService {
-    @Autowired //Inyecta el repository automáticamente
+    @Autowired //Inyecta todas las dependencias que vamos a ultizar
     private EmpleadoRepository empleadoRepository; //Declaramos la variable del repository y tendremos acceso a todos los metodos
     public List<Empleado> listarEmpleados() {// Definimos un metodo publico, su funcion es obtener todos los empleados
         return empleadoRepository.findAll(); //Es un metodo de JpaRepository y trae todos los registros de la tabla empleado
@@ -28,7 +28,7 @@ public class EmpleadoService {
         Empleado empleadoExistente = empleadoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Empleado no encontrado con id: " + id));
 
-        // Actualizamos los campos que quieras cambiar
+        // Actualizamos los campos que queremos cambiar
         empleadoExistente.setTelefono(datosEmpleado.getTelefono());
         empleadoExistente.setFechaIngreso(datosEmpleado.getFechaIngreso());
         empleadoExistente.setCargo(datosEmpleado.getCargo());
@@ -45,7 +45,7 @@ public class EmpleadoService {
         empleadoRepository.delete(empleado);
     }
 
-    // ✅ Agrega este método nuevo para obtener empleados con turno
+    //Agregamos este método nuevo para obtener empleados con turno
     public List<Empleado> listarEmpleadosConTurno() {
         return empleadoRepository.findAllWithTurno();
     }
